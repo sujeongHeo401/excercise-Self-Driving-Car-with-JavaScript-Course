@@ -14,6 +14,11 @@ class Car{
     }
 
     update(){
+        this.#move();
+        // 선분의 길이가 1cm 인 경우 사인은 각도에 대한 상승을 나타내며 동일한 길이의 선에 대해 Cos는 각도에 대한 런을 나타냅니다.
+    }
+
+    #move(){
         if(this.controls.forward){
             this.speed += this.acceleration;
         }
@@ -40,17 +45,22 @@ class Car{
             this.speed = 0;
         }
 
-        if(this.controls.left){
-            this.angle+=0.03;
+        if(this.spped!=0){
+            const flip = this.speed > 0?1:-1;
+            if(this.controls.left){
+                this.angle+=0.03 * flip;
+            }
+            if(this.controls.right){
+                this.angle -= 0.03* flip;
+    
+            }
         }
-        if(this.controls.right){
-            this.angle -= 0.03;
 
-        }
+
+
+     
         this.x -= Math.sin(this.angle)*this.speed;
         this.y -= Math.cos(this.angle)*this.speed;
-    
-        // 선분의 길이가 1cm 인 경우 사인은 각도에 대한 상승을 나타내며 동일한 길이의 선에 대해 Cos는 각도에 대한 런을 나타냅니다.
     }
 
     draw(ctx){
